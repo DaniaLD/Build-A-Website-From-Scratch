@@ -39,7 +39,7 @@ module.exports = class Application {
     }
 
     setConfig() {
-        app.use(express.static(__dirname + '/public'));
+        app.use(express.static('public'));
         app.set('view engine', 'ejs');
         app.set('views', path.resolve('./resource/views'));
 
