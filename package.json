@@ -1,0 +1,23 @@
+{
+  "name": "build-a-website-from-scratch",
+  "version": "1.0.0",
+  "description": "Build a website from complete scratch",
+  "main": "server.js",
+  "scripts": {},
+  "author": "Danial Dabirian",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^2.0.1",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.6.1",
+    "eslint": "^5.0.1",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.2.0",
+    "mongoose": "^5.2.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
+  }
+}
