@@ -56,6 +56,10 @@ module.exports = class Application {
         }));
         app.use(cookieParser('mysecretkey'));
 
+        app.use(passport.initialize());
+        app.use(passport.session());
+        require('app/passport/passport-local');
+
         app.use(flash());
     }
 
