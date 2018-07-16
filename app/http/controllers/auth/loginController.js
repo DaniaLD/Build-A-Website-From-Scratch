@@ -1,16 +1,19 @@
 const controller = require('app/http/controllers/controller');
+const passport = require('passport');
 
 class loginController extends controller{
     showLoginForm(req, res) {
-        res.render('auth/login', { messages: req.flash('errors') });
+        res.render('auth/login', { errors: req.flash('errors'), recaptcha: this.recaptcha.render() });
     }
 
     loginProcess(req, res, next) {
-        this.validationData(req)
+        this.recaptchaValidation(req, res)
+        .then(result => this.validationData(req))
         .then(result => {
-            if(result) res.json('Login Process');
+            if(result) this.login(req, res, next);
             else res.redirect('/login');
-        });
+        })
+        .catch(err => console.log(err));
     }
 
     validationData(req) {
@@ -32,6 +35,14 @@ class loginController extends controller{
             return false;
         })
         .catch(err => console.log(err));
+    }
+
+    login(req, res, next) {
+        passport.authenticate('my_local_login', {
+            successRedirect: '/',
+            failureRedirect: '/login',
+            failureFlash: true
+        })(req, res, next);
     }
 }
 

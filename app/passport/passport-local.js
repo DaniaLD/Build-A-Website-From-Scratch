@@ -42,3 +42,23 @@ passport.use('my_local_register', new LocalStrategy({
         });
     }
 ));
+
+passport.use('my_local_login', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+    },
+    (req, email, password, done) => {
+        User.findOne({ 'email': email }, (err, user) => {
+            if(err) {
+                return done(err);
+            }
+
+            if(! user || ! user.comparePassword(password)) {
+                return done(null, false, req.flash('errors', 'اطلاعات وارد شده مطابقت ندارند.'))
+            }
+
+            done(null, user);
+        });
+    }
+));
