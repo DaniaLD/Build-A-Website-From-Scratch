@@ -28,10 +28,18 @@
                         <a class="nav-link" href="#">درباره ما</a>
                     </li>
                     </ul>
+
+                    <% if(auth.check) { %>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a class="btn btn-success btn-sm ml-2 mb-2 mt-2"  href="/#">پنل کاربری</a></li>
+                            <li><a class="btn btn-danger btn-sm mt-2"  href="/logout">خروج</a></li>
+                        </ul>
+                    <% } else { %>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a class="btn btn-success btn-sm ml-2 mb-2 mt-2"  href="/login">ورود</a></li>
                         <li><a class="btn btn-primary btn-sm mt-2"  href="/register">عضویت</a></li>
                     </ul>
+                    <% } %>
                 </div>
         </div>
     </nav>

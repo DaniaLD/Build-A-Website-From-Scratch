@@ -11,6 +11,8 @@ const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const passport = require('passport');
+const Helpers = require('./helpers');
+const rememberLogin = require('app/http/middlewares/rememberLogin')
 
 module.exports = class Application {
     constructor() {
@@ -62,6 +64,14 @@ module.exports = class Application {
         require('app/passport/passport-local');
 
         app.use(flash());
+
+        app.use(rememberLogin.handle);
+
+        // Local Variables
+        app.use((req, res, next) => {
+            app.locals = new Helpers(req, res).getObjects();
+            next();
+        });
     }
 
     setRouters() {
