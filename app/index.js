@@ -7,7 +7,6 @@ const bodyParser =  require('body-parser');
 const cookieParser = require('cookie-parser');
 const validator = require('express-validator');
 const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const passport = require('passport');
@@ -24,14 +23,14 @@ module.exports = class Application {
 
     setupExpress() {
         const server = http.createServer(app);
-        server.listen(port, () => {
-            console.log(`app is listenning on port: ${port}`);
+        server.listen(config.port, () => {
+            console.log(`app is listenning on port: ${config.port}`);
         });
     }
 
     setMongoConnection() {
         mongoose.Promise = global.Promise;
-        mongoose.connect('mongodb://localhost:27017/Build-A-Website-From-Scratch', {useNewUrlParser: true}, err => {
+        mongoose.connect(config.database.url, {useNewUrlParser: true}, err => {
             if (err) {
                 console.log(`Couldn't connect to mongodb !!! => Error : ${err}`);
             } else {
@@ -50,14 +49,8 @@ module.exports = class Application {
 
         app.use(validator());
 
-        app.use(session({
-            secret: 'mysecretkey',
-            resave: true,
-            saveUninitialized: true,
-            cookie: { expires: new Date(Date.now() + 1000 * 60 * 60 * 6) }, // 6 Hours
-            store: new MongoStore({mongooseConnection: mongoose.connection})
-        }));
-        app.use(cookieParser('mysecretkey'));
+        app.use(session({...config.session}));
+        app.use(cookieParser(config.cookieSecretKey));
 
         app.use(passport.initialize());
         app.use(passport.session());
