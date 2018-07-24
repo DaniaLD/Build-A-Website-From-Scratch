@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>صفحه اصلی | خوش آمدید</title>
+    <title><%- defineContent('title') || 'صفحه اصلی | خوش آمدید' %></title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-rtl.min.css">
+
+    <%- style %>
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container">
-                <a class="navbar-brand" href="#">فروشگاه من</a>
+                <a class="navbar-brand" href="/">فروشگاه من</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -45,3 +47,12 @@
     </nav>
 
     <div class="container">
+        <%- body %>
+    </div>
+
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <%- script %>
+</body>
+</html>

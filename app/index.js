@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const port = 3000 || process.env.PORT;
-const path = require('path');
 const bodyParser =  require('body-parser');
 const cookieParser = require('cookie-parser');
 const validator = require('express-validator');
@@ -40,9 +39,13 @@ module.exports = class Application {
     }
 
     setConfig() {
-        app.use(express.static('public'));
-        app.set('view engine', 'ejs');
-        app.set('views', path.resolve('./resource/views'));
+        app.use(express.static(config.layout.publicDir));
+        app.set('view engine', config.layout.viewEngine);
+        app.set('views', config.layout.viewsDir);
+        app.use(config.layout.ejs.expressLayouts);
+        app.set("layout extractScripts", config.layout.ejs.extractScripts);
+        app.set("layout extractStyles", config.layout.ejs.extractStyles);
+        app.set('layout', config.layout.ejs.master);
 
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({extended: true}));
