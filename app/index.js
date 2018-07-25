@@ -39,6 +39,9 @@ module.exports = class Application {
     }
 
     setConfig() {
+        require('app/passport/passport-local');
+        require('app/passport/passport-google');        
+
         app.use(express.static(config.layout.publicDir));
         app.set('view engine', config.layout.viewEngine);
         app.set('views', config.layout.viewsDir);
@@ -57,7 +60,6 @@ module.exports = class Application {
 
         app.use(passport.initialize());
         app.use(passport.session());
-        require('app/passport/passport-local');
 
         app.use(flash());
 

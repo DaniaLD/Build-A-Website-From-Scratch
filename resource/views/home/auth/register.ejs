@@ -4,7 +4,7 @@
                         <div class="card card-default">
                                 <div class="card-header"><h4>عضویت در سایت</h4></div>
                                 <div class="card-body">
-                                        <form action="/register" method="POST" class="form form-horizontal">
+                                        <form action="/auth/register" method="POST" class="form form-horizontal">
                                                 <% include ./../layout/error-messages.ejs %>
 
                                                 <div class="form-group">
@@ -28,6 +28,7 @@
 
                                                 <div class="form-group">
                                                         <button class="btn btn-primary" type="submit">عضویت</button>
+                                                        <a href="/auth/google" class="btn btn-danger">ورود با اکانت گوگل</a>
                                                 </div>
                                         </form>
                                 </div>
