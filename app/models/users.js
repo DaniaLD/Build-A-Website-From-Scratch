@@ -11,12 +11,19 @@ const userSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 userSchema.pre('save', function(next) {
-    bcrypt.hash(this.password, bcrypt.genSaltSync(15), (err, hash) => {
-        if(err) console.log(err);
+    let salt = bcrypt.genSaltSync(15);
+    let hash = bcrypt.hashSync(this.password, salt);
 
-        this.password = hash;
-        next();
-    });
+    this.password = hash;
+    next();
+});
+
+userSchema.pre('findOneAndUpdate', function(next) {
+    let salt = bcrypt.genSaltSync(15);
+    let hash = bcrypt.hashSync(this.getUpdate().$set.password, salt);
+
+    this.getUpdate().$set.password = hash;
+    next();
 })
 
 userSchema.methods.comparePassword = function(password) {

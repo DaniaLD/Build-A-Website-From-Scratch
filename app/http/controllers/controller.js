@@ -21,7 +21,7 @@ module.exports = class controller {
             this.recaptcha.verify(req, (err, data) => {
                 if(err) {
                     req.flash('errors', 'گزینه مربوط به بررسی ربات خاموش میباشد ، لطفا از روشن بودن آن امتحان حاصل نمایید سپس دوباره امتحان نمایید.');
-                    res.redirect(req.originalUrl);
+                    this.back(req, res);
                 } else resolve(true);
             })
         })
@@ -43,5 +43,9 @@ module.exports = class controller {
         }
 
         return true;
+    }
+
+    back(req, res) {
+        return res.redirect(req.header('Referer') || '/');
     }
 }
