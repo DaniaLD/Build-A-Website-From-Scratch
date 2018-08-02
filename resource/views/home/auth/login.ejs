@@ -5,7 +5,7 @@
                                 <div class="card-header"><h4>ورود به سایت</h4></div>
                                 <div class="card-body">
                                         <form action="/auth/login" method="POST" class="form form-horizontal">
-                                                <% include ./../layout/error-messages.ejs %>
+                                                <%- include(viewPath('layouts/error-messages')) -%>
 
                                                 <div class="form-group">
                                                         <label class="control-label">ادرس ایمیل</label>

@@ -5,7 +5,7 @@
                             <div class="card-header"><h4>بازیابی رمز عبور</h4></div>
                             <div class="card-body">
                                     <form action="/auth/password/reset" method="POST" class="form form-horizontal">
-                                            <% include ./../../layout/error-messages.ejs %>
+                                        <%- include(viewPath('layouts/error-messages')) -%>
 
                                             <input type="hidden" name="token" value="<%= token %>">
 

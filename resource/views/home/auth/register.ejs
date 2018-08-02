@@ -5,7 +5,7 @@
                                 <div class="card-header"><h4>عضویت در سایت</h4></div>
                                 <div class="card-body">
                                         <form action="/auth/register" method="POST" class="form form-horizontal">
-                                                <% include ./../layout/error-messages.ejs %>
+                                                <%- include(viewPath('layouts/error-messages')) -%>
 
                                                 <div class="form-group">
                                                         <label class="control-label">نام کامل</label>
