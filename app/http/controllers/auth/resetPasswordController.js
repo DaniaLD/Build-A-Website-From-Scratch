@@ -5,7 +5,7 @@ const PasswordReset = require('app/models/password-reset');
 class resetPasswordController extends controller{
     showResetPasswordForm(req, res) {
         const title = 'بازیابی رمز عبور';
-        res.render('home/auth/passwords/reset', { errors: req.flash('errors'), recaptcha: this.recaptcha.render(), title, token: req.params.token });
+        res.render('home/auth/passwords/reset', { recaptcha: this.recaptcha.render(), title, token: req.params.token });
     }
 
     async resetPasswordProcess(req, res) {
@@ -16,6 +16,7 @@ class resetPasswordController extends controller{
             return this.resetPassword(req, res);
         }
 
+        req.flash('formData', req.body);
         return this.back(req, res);
     }
 
