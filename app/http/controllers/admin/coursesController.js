@@ -1,4 +1,5 @@
 const controller = require('app/http/controllers/controller');
+const Course = require('app/models/courses');
 
 class coursesController extends controller{
     index(req, res) {
@@ -7,6 +8,36 @@ class coursesController extends controller{
 
     create(req, res) {
         res.render('admin/courses/create');
+    }
+
+    async store(req, res) {
+        let result = await this.validationData(req);
+
+        if(! result) {
+            return this.back(req, res);
+        }
+
+        let images = req.body.images;
+        let { title, type, body, price, tags } = req.body;  // Destructure req.body
+
+        let newCourse = new Course({
+            title,
+            type,
+            body,
+            price,
+            tags,
+            images,
+            user: req.user._id,
+            slug: this.slug(title)
+        });
+
+        await newCourse.save();
+
+        return res.redirect('/admin/courses')
+    }
+
+    slug(title) {
+        return title.replace(/([^۰-۹آ-یa-z0-9]|-)+/g , "-")
     }
 }
 
