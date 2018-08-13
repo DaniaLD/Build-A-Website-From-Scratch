@@ -1,5 +1,6 @@
 const controller = require('app/http/controllers/controller');
 const Course = require('app/models/courses');
+const fs = require('fs');
 
 class coursesController extends controller{
     index(req, res) {
@@ -14,6 +15,10 @@ class coursesController extends controller{
         let result = await this.validationData(req);
 
         if(! result) {
+            // Deletes files which have been uploaded, if there are any errors.
+            if(req.file)
+                fs.unlink(req.file.path, err => {});
+            
             return this.back(req, res);
         }
 
